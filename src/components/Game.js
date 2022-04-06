@@ -1,15 +1,23 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDetails } from '../actions/detailsAction';
+import { Link } from 'react-router-dom';
 
 
 export default function Game({ name, background, id, release_date }) {
+    const dispatch = useDispatch();
+    function handleFetchDetails() {
+        dispatch(fetchDetails(id));
+    }
     return (
-
-        <GameStyle>
-            <h3>{name}</h3>
-            <p>{release_date}</p>
-            <img src={background} alt={name} />
-        </GameStyle>
+        <Link to="/gamedetails">
+            <GameStyle onClick={() => handleFetchDetails()}>
+                <h3>{name}</h3>
+                <p>{release_date}</p>
+                <img src={background} alt={name} />
+            </GameStyle>
+        </Link>
 
     )
 }
